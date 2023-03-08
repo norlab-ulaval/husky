@@ -100,6 +100,20 @@
     <gazebo reference="${prefix}imu_link">
     </gazebo>
 
+    <!-- Custom TFs -->
+    <link name="mti100"/>
+    <joint name="mti100_joint" type="fixed">
+      <origin xyz="-0.256 0.161 0.472" rpy="0.0 0.0 3.14159" />
+      <parent link="base_link" />
+      <child link="mti100"/>
+    </joint>
+    <link name="lidar_link"/>
+    <joint name="lidar_link_joint" type="fixed">
+      <origin xyz="-0.410 0.161 -0.028" rpy="0.0 -0.178 0" />
+      <parent link="mti100" />
+      <child link="lidar_link"/>
+    </joint>
+
     <!-- Husky wheel macros -->
     <xacro:husky_wheel wheel_prefix="${prefix}front_left">
       <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
@@ -167,7 +181,7 @@
           <param name="max_accel">5.0</param>
           <param name="max_speed">1.0</param>
           <param name="polling_timeout">10.0</param>
-          <param name="serial_port">/dev/prolific</param>
+	  <param name="serial_port">/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6031ITX-if00-port0</param>
         </xacro:unless>
       </hardware>
       <joint name="${prefix}front_left_wheel_joint">

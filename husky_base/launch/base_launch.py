@@ -45,6 +45,7 @@ def generate_launch_description():
             "stdout": "screen",
             "stderr": "screen",
         },
+        remappings=[('odom', 'husky_velocity_controller/odom')],
     )
 
     spawn_controller = Node(
