@@ -1,32 +1,32 @@
 name: husky_ci
 
-on: 
+on:
   push:
-    braches: [galactic-devel]
-    pull_request: [galactic-devel]
+    branches: [humble]
+    pull_request: [humble]
   schedule:
-    - cron: '0 4 * * *' # every day at 4 AM (UTC)
+    - cron: "0 4 * * *" # every day at 4 AM (UTC)
 
 jobs:
   husky_galactic_testing_ci:
-    name: Galactic Testing
+    name: Humble Testing
     strategy:
       matrix:
         env:
-          - {ROS_DISTRO: galactic, ROS_REPO: testing}
+          - { ROS_DISTRO: humble, ROS_REPO: testing }
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 'ros-industrial/industrial_ci@master'
+      - uses: "ros-industrial/industrial_ci@master"
         env: ${{matrix.env}}
   husky_galactic_main_ci:
-    name: Galactic Main
+    name: Humble Main
     strategy:
       matrix:
         env:
-          - {ROS_DISTRO: galactic, ROS_REPO: main}
+          - { ROS_DISTRO: humble, ROS_REPO: main }
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 'ros-industrial/industrial_ci@master'
+      - uses: "ros-industrial/industrial_ci@master"
         env: ${{matrix.env}}
