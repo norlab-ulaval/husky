@@ -55,7 +55,7 @@ public:
   HARDWARE_INTERFACE_PUBLIC
   hardware_interface::return_type write() override;
 
-  void updateDiagnostics(std::shared_ptr<rclcpp::Node> node);
+  husky_msgs::msg::HuskyStatus updateDiagnostics(std::shared_ptr<rclcpp::Node> node);
 
 private:
   void initializeDiagnostics();
@@ -73,7 +73,6 @@ private:
   double wheel_diameter_, max_accel_, max_speed_;
 
   // Diagnostics
-  rclcpp::Publisher<husky_msgs::msg::HuskyStatus>::SharedPtr diagnostic_publisher_;
   husky_msgs::msg::HuskyStatus husky_status_msg_;
   diagnostic_updater::Updater diagnostic_updater_;
 

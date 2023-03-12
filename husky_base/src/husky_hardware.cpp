@@ -180,6 +180,16 @@ uint8_t HuskyHardware::isLeft(const std::string& str)
   return RIGHT;
 }
 
+/**
+ * External hook to trigger diagnostic update
+ */
+husky_msgs::msg::HuskyStatus HuskyHardware::updateDiagnostics(std::shared_ptr<rclcpp::Node> node)
+{
+  diagnostic_updater_.force_update();
+  husky_status_msg_.header.stamp = node->get_clock()->now();
+  return husky_status_msg_;
+}
+
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
 HuskyHardware::on_init(const hardware_interface::HardwareInfo& info)
 {
