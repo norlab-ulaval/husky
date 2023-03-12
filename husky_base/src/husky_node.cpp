@@ -20,6 +20,7 @@ private:
     diagnostic_publisher_->publish(husky_status_msg);
   }
   rclcpp::TimerBase::SharedPtr timer_;
+  // TODO: Create a constructor for husky
   husky_base::HuskyHardware husky;
   rclcpp::Publisher<husky_msgs::msg::HuskyStatus>::SharedPtr diagnostic_publisher_;
 };
