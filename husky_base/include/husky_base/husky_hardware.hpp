@@ -12,6 +12,9 @@
 #include "hardware_interface/visibility_control.h"
 #include "rclcpp/macros.hpp"
 
+#include "diagnostic_updater/diagnostic_updater.hpp"
+#include "husky_msgs/msg/husky_status.hpp"
+
 #include <chrono>
 
 #include "rclcpp/rclcpp.hpp"
@@ -29,7 +32,8 @@ public:
   RCLCPP_SHARED_PTR_DEFINITIONS(HuskyHardware)
 
   HARDWARE_INTERFACE_PUBLIC
-  rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn on_init(const hardware_interface::HardwareInfo & info) override;
+  rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
+  on_init(const hardware_interface::HardwareInfo& info) override;
 
   HARDWARE_INTERFACE_PUBLIC
   std::vector<hardware_interface::StateInterface> export_state_interfaces() override;
@@ -38,10 +42,12 @@ public:
   std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
 
   HARDWARE_INTERFACE_PUBLIC
-  rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn on_activate(const rclcpp_lifecycle::State & previous_state) override;
+  rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
+  on_activate(const rclcpp_lifecycle::State& previous_state) override;
 
   HARDWARE_INTERFACE_PUBLIC
-  rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn on_deactivate(const rclcpp_lifecycle::State & previous_state) override;
+  rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
+  on_deactivate(const rclcpp_lifecycle::State& previous_state) override;
 
   HARDWARE_INTERFACE_PUBLIC
   hardware_interface::return_type read() override;
@@ -49,19 +55,27 @@ public:
   HARDWARE_INTERFACE_PUBLIC
   hardware_interface::return_type write() override;
 
+  void updateDiagnostics(std::shared_ptr<rclcpp::Node> node);
+
 private:
+  void initializeDiagnostics();
   void resetTravelOffset();
-  double linearToAngular(const double &travel) const;
-  double angularToLinear(const double &angle) const;
+  double linearToAngular(const double& travel) const;
+  double angularToLinear(const double& angle) const;
   void writeCommandsToHardware();
-  void limitDifferentialSpeed(double &diff_speed_left, double &diff_speed_right);
+  void limitDifferentialSpeed(double& diff_speed_left, double& diff_speed_right);
   void updateJointsFromHardware();
-  uint8_t isLeft(const std::string &str);
+  uint8_t isLeft(const std::string& str);
 
   // ROS Parameters
   std::string serial_port_;
   double polling_timeout_;
   double wheel_diameter_, max_accel_, max_speed_;
+
+  // Diagnostics
+  rclcpp::Publisher<husky_msgs::msg::HuskyStatus>::SharedPtr diagnostic_publisher_;
+  husky_msgs::msg::HuskyStatus husky_status_msg_;
+  diagnostic_updater::Updater diagnostic_updater_;
 
   // Store the command for the robot
   std::vector<double> hw_commands_;
