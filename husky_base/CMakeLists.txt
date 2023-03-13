@@ -28,6 +28,8 @@ find_package(std_srvs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 
+find_package(diagnostic_msgs REQUIRED)
+find_package(diagnostic_updater REQUIRED)
 
 ## COMPILE
 add_library(
@@ -54,6 +56,9 @@ target_include_directories(
 
 ament_target_dependencies(
   husky_hardware
+  husky_msgs
+  diagnostic_msgs
+  diagnostic_updater
   hardware_interface
   pluginlib
   rclcpp

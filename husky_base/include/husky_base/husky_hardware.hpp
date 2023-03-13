@@ -23,31 +23,31 @@
 
 using namespace std::chrono_literals;
 
-namespace husky_base
-{
+namespace husky_base {
 
-class HuskyHardware : public hardware_interface::SystemInterface
-{
+class HuskyHardware : public hardware_interface::SystemInterface {
 public:
   RCLCPP_SHARED_PTR_DEFINITIONS(HuskyHardware)
 
   HARDWARE_INTERFACE_PUBLIC
   rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
-  on_init(const hardware_interface::HardwareInfo& info) override;
+  on_init(const hardware_interface::HardwareInfo &info) override;
 
   HARDWARE_INTERFACE_PUBLIC
-  std::vector<hardware_interface::StateInterface> export_state_interfaces() override;
+  std::vector<hardware_interface::StateInterface>
+  export_state_interfaces() override;
 
   HARDWARE_INTERFACE_PUBLIC
-  std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
+  std::vector<hardware_interface::CommandInterface>
+  export_command_interfaces() override;
 
   HARDWARE_INTERFACE_PUBLIC
   rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
-  on_activate(const rclcpp_lifecycle::State& previous_state) override;
+  on_activate(const rclcpp_lifecycle::State &previous_state) override;
 
   HARDWARE_INTERFACE_PUBLIC
   rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
-  on_deactivate(const rclcpp_lifecycle::State& previous_state) override;
+  on_deactivate(const rclcpp_lifecycle::State &previous_state) override;
 
   HARDWARE_INTERFACE_PUBLIC
   hardware_interface::return_type read() override;
@@ -55,17 +55,19 @@ public:
   HARDWARE_INTERFACE_PUBLIC
   hardware_interface::return_type write() override;
 
-  husky_msgs::msg::HuskyStatus updateDiagnostics(std::shared_ptr<rclcpp::Node> node);
+  husky_msgs::msg::HuskyStatus
+  updateDiagnostics(std::shared_ptr<rclcpp::Node> node);
 
 private:
   void initializeDiagnostics();
   void resetTravelOffset();
-  double linearToAngular(const double& travel) const;
-  double angularToLinear(const double& angle) const;
+  double linearToAngular(const double &travel) const;
+  double angularToLinear(const double &angle) const;
   void writeCommandsToHardware();
-  void limitDifferentialSpeed(double& diff_speed_left, double& diff_speed_right);
+  void limitDifferentialSpeed(double &diff_speed_left,
+                              double &diff_speed_right);
   void updateJointsFromHardware();
-  uint8_t isLeft(const std::string& str);
+  uint8_t isLeft(const std::string &str);
 
   // ROS Parameters
   std::string serial_port_;
@@ -78,11 +80,12 @@ private:
 
   // Store the command for the robot
   std::vector<double> hw_commands_;
-  std::vector<double> hw_states_position_, hw_states_position_offset_, hw_states_velocity_;
+  std::vector<double> hw_states_position_, hw_states_position_offset_,
+      hw_states_velocity_;
 
   uint8_t left_cmd_joint_index_, right_cmd_joint_index_;
 };
 
-}  // namespace husky_base
+} // namespace husky_base
 
-#endif  // HUSKY_BASE__HUSKY_HARDWARE_HPP_
+#endif // HUSKY_BASE__HUSKY_HARDWARE_HPP_
