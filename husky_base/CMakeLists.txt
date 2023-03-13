@@ -64,8 +64,12 @@ ament_target_dependencies(
   rclcpp
 )
 
-
 pluginlib_export_plugin_description_file(hardware_interface husky_hardware.xml)
+
+add_executable(husky_node src/husky_node.cpp)
+ament_target_dependencies(husky_node rclcpp husky_msgs)
+target_link_libraries(husky_node husky_hardware)
+
 
 # INSTALL
 install(
@@ -80,6 +84,11 @@ install(
 
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}
+)
+
+install(
+  TARGETS husky_node
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 
