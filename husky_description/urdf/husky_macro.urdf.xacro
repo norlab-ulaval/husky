@@ -48,7 +48,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="file://$(find husky_description)/meshes/base_link.dae" />
+          <mesh filename="package://husky_description/meshes/base_link.dae" />
         </geometry>
       </visual>
       <collision>
@@ -181,7 +181,7 @@
           <param name="max_accel">5.0</param>
           <param name="max_speed">1.0</param>
           <param name="polling_timeout">10.0</param>
-	  <param name="serial_port">/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6031ITX-if00-port0</param>
+          <param name="serial_port">/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6031ITX-if00-port0</param>
         </xacro:unless>
       </hardware>
       <joint name="${prefix}front_left_wheel_joint">
