@@ -5,8 +5,8 @@ on:
     branches: [humble]
   pull_request:
     branches: [humble]
-  schedule:
-    - cron: "0 4 * * *" # every day at 4 AM (UTC)
+  # schedule:
+  #   - cron: "0 4 * * *" # every day at 4 AM (UTC)
 
 jobs:
   husky_humble_testing_ci:
