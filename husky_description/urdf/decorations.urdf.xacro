@@ -167,18 +167,18 @@
 
       <xacro:unless value="$(optenv HUSKY_LARGE_TOP_PLATE false)">
         <link name="top_plate_link">
-          <visual>
+          <!-- <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
               <mesh filename="package://husky_description/meshes/top_plate.dae" />
             </geometry>
-          </visual>
-          <collision>
+          </visual> -->
+          <!-- <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
               <mesh filename="package://husky_description/meshes/top_plate.stl" />
             </geometry>
-          </collision>
+          </collision> -->
         </link>
         <!-- Attach top plate -->
         <joint name="top_plate_joint" type="fixed">
