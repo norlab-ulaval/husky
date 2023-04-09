@@ -2,9 +2,9 @@ name: husky_ci
 
 on:
   push:
-    branches: [humble_default_hardware_interface]
+    branches: [humble-desktop-default-hardware-interface]
   pull_request:
-    branches: [humble_default_hardware_interface]
+    branches: [humble-desktop-default-hardware-interface]
   schedule:
     - cron: "0 4 * * *" # every day at 4 AM (UTC)
 
