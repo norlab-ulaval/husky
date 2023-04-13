@@ -436,17 +436,18 @@ hardware_interface::return_type HuskyHardware::read()
 
   RCLCPP_DEBUG(rclcpp::get_logger(HW_NAME), "Joints successfully read!");
 
-  // This will run at 10Hz but status data is only needed at 1Hz.
-  static int i = 0;
-  if (i <= 10)
-  {
-    i++;
-  }
-  else
-  {
-    readStatusFromHardware();
-    i = 0;
-  }
+  // // This will run at 10Hz but status data is only needed at 1Hz.
+  // static int i = 0;
+  // if (i <= 10)
+  // {
+  //   i++;
+  // }
+  // else
+  // {
+  //   readStatusFromHardware();
+  //   i = 0;
+  // }
+  readStatusFromHardware();
 
   return hardware_interface::return_type::OK;
 }
